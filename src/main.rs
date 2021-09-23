@@ -1,4 +1,4 @@
-// A small program to de/en-crypt with the caesar procedure.
+// A small program to de/en-crypt with the vigenere procedure.
 //
 // Usage:
 //  - For interactive use: 
