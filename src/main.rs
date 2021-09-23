@@ -3,6 +3,20 @@ struct Key {
     long: Vec<char>,
 }
 
+impl Key {
+    fn new(short:String, word:&str) -> Key{
+        let mut long_key = vec!();
+        for i in 0..word.len() {
+            long_key.push(short.chars()
+                               .collect::<Vec<char>>()[i % short.len()])
+        }
+        Key {
+            short,
+            long: long_key
+        }
+    }
+}
+
 enum Crypt{
     // Crypt enum
     En,
@@ -26,9 +40,9 @@ fn all_in_abc(kt:&str) -> bool{
     true
 }
 
-fn get_modulo(x:u32, s:u32, t:u32) -> u32{
+fn get_modulo(x:u32, t:u32) -> u32{
     // Encrypts a number
-    (x*s+t) % 26
+    (x+t) % 26
 }
 
 fn string_to_nums(s:&str) -> Vec<u32>{
@@ -55,25 +69,24 @@ fn nums_to_string(nums:Vec<u32>) -> String{
     s
 }
 
-impl Key {
-    fn new(short:String, word:String) -> Key{
-        let mut long_key = vec!();
-        for i in 0..word.len() {
-            long_key.push(word.chars()
-                              .collect::<Vec<char>>()[i % short.len()])
-        }
-        Key {
-            short,
-            long: long_key
-        }
+fn encrypt(nums:&Vec<u32>, key:Key) -> Vec<u32>{
+    let mut gt_nums = vec!();
+    for (num, k) in nums.iter().zip(key.long.iter()) {
+        gt_nums.push(get_modulo(*num, abc().iter()
+                                .position(|&r| r == *k)
+                                .unwrap() as u32));
     }
+    gt_nums
 }
 
 fn main() {
-    let word = String::from("hallo welt").trim()
+    let word = String::from("diestadtdertraeumendenbuecher").trim()
                                          .to_ascii_lowercase()
                                          .replace(" ", "")
                                          .to_string();
-    let key = Key::new(String::from("ab"), word);
-    println!("{:?}", key.long)
+    let key = Key::new(String::from("zamonien"), &word[..]);
+    let nums = string_to_nums(&word[..]);
+    let new_nums = encrypt(&nums, key);
+
+    println!("{}", nums_to_string(new_nums));
 }
