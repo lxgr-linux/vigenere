@@ -15,6 +15,15 @@ impl Key {
             long: long_key
         }
     }
+    fn to_anti_key(&mut self) {
+        let mut new_long = vec!();
+        for k in self.long.iter() {
+            new_long.push(abc()[(26-abc().iter()
+                                         .position(|&r| r == *k)
+                                         .unwrap()) % 26])
+        }
+        self.long = new_long;
+    }
 }
 
 enum Crypt{
@@ -80,11 +89,12 @@ fn encrypt(nums:&Vec<u32>, key:Key) -> Vec<u32>{
 }
 
 fn main() {
-    let word = String::from("diestadtdertraeumendenbuecher").trim()
+    let word = String::from("ciqggihgcedheiihlezrrvfhdctse").trim()
                                          .to_ascii_lowercase()
                                          .replace(" ", "")
                                          .to_string();
-    let key = Key::new(String::from("zamonien"), &word[..]);
+    let mut key = Key::new(String::from("zamonien"), &word[..]);
+    key.to_anti_key();
     let nums = string_to_nums(&word[..]);
     let new_nums = encrypt(&nums, key);
 
