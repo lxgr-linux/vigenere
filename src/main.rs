@@ -19,11 +19,13 @@ use std::env;
 
 
 struct Key {
+    // Key class
     long: Vec<char>,
 }
 
 impl Key {
     fn new(short:&str, word:&str) -> Key{
+        // generates a new Key
         let mut long_key = vec!();
         for i in 0..word.len() {
             long_key.push(short.chars()
@@ -34,6 +36,7 @@ impl Key {
         }
     }
     fn to_anti_key(&mut self) {
+        // Makes the Key an anti key
         let mut new_long = vec!();
         for k in self.long.iter() {
             new_long.push(abc()[(26-abc().iter()
@@ -97,6 +100,7 @@ fn nums_to_string(nums:Vec<u32>) -> String{
 }
 
 fn encrypt(nums:&Vec<u32>, key:Key) -> Vec<u32>{
+    // Encrypts a Vec<u32>
     let mut gt_nums = vec!();
     for (num, k) in nums.iter().zip(key.long.iter()) {
         gt_nums.push(get_modulo(*num, abc().iter()
