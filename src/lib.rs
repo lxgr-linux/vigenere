@@ -24,9 +24,9 @@ pub fn all_in_abc(kt:&str) -> bool{
     true
 }
 
-pub fn get_modulo(x:u32, t:u32) -> u32{
+pub fn get_modulo(x:u32, s:u32, t:u32) -> u32{
     // Encrypts a number
-    (x+t) % 26
+    (x*s+t) % 26
 }
 
 pub fn string_to_nums(s:&str) -> Vec<u32>{

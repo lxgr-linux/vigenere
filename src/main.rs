@@ -49,7 +49,7 @@ fn encrypt(nums:&Vec<u32>, key:Key) -> Vec<u32>{
     // Encrypts a Vec<u32>
     let mut gt_nums = vec!();
     for (num, k) in nums.iter().zip(key.long.iter()) {
-        gt_nums.push(get_modulo(*num, abc().iter()
+        gt_nums.push(get_modulo(*num, 1, abc().iter()
                                 .position(|&r| r == *k)
                                 .unwrap() as u32));
     }
