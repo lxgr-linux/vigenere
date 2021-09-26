@@ -148,7 +148,7 @@ fn main() {
     
     let mut key_list = vec!();
     if args.len() == 1 {
-        for text in ["key word", "text"]{
+        for text in ["text", "key word"]{
             key_list.push(
                 loop{
                     // Gets text input, that should be decrypted 
@@ -176,8 +176,8 @@ fn main() {
         }
     };
 
-    let kt = &key_list[1][..];
-    let mut key = Key::new(&key_list[0][..], kt);
+    let kt = &key_list[0][..];
+    let mut key = Key::new(&key_list[1][..], kt);
     match en {
         Crypt::De => key.to_anti_key(),
         Crypt::En => {}
