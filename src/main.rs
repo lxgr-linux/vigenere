@@ -8,7 +8,7 @@
 //
 //  - For noninteractive use: 
 // ```shell
-//  $ cargo run <encrypt/decrypt> <key> <text>
+//  $ cargo run <encrypt/decrypt> <text> <key>
 // ```
 //
 // by lxgr <lxgr@protonmail.com>

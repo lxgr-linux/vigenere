@@ -9,7 +9,7 @@ A small program to de/en-crypt with the vigenere procedure.
 
 - For noninteractive use: 
 ```shell
- $ cargo run <encrypt/decrypt> <key> <text>
+ $ cargo run <encrypt/decrypt> <text> <key>
 ```
 
 Note: Just ascii characters and spaces are allowed in the text!
@@ -18,7 +18,7 @@ Note: Just ascii characters and spaces are allowed in the text!
 
 This encrypts the text "Hello world" with the key "hello":
 ```shell
- $ cargo run encrypt hello "Hello world"
+ $ cargo run encrypt "Hello world" hello
 ```
 
 ## License
