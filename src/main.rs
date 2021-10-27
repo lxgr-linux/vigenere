@@ -59,8 +59,9 @@ fn encrypt(nums:&Vec<u32>, key:Key) -> Vec<u32>{
 fn main() {
     let args:Vec<String> = env::args().collect();
     if args.len() != 4 && args.len() != 1 {
-        panic!("Error: This program needs to have 3 or 0 arguments, not {}!",
+        eprintln!("Error: This program needs to have 3 or 0 arguments, not {}!",
                args.len()-1);
+        std::process::exit(1)
     }
 
     let en:Crypt = {
@@ -78,7 +79,10 @@ fn main() {
             match &args[1].trim().to_ascii_lowercase()[..]{
                 "encrypt" => Crypt::En,
                 "decrypt" => Crypt::De,
-                _ => panic!("Invalid en/decryption operator")
+                _ => {
+                        eprintln!("Error: Invalid en/decryption operator");
+                        std::process::exit(1);       
+                }
             }
         }
     };
@@ -105,7 +109,8 @@ fn main() {
                 {
                     let kt = args[2 + i].replace(" ", "").to_ascii_lowercase();
                     if !all_in_abc(&kt){
-                        panic!("The text is only allowed to contain characters and spaces")
+                        eprintln!("Error: The text is only allowed to contain characters and spaces");
+                        std::process::exit(1);
                         }   
                     kt
                 }
